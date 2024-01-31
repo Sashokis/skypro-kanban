@@ -1,6 +1,6 @@
 import Column from '../Column/Column';
 import { Container } from '../Common/Common.styled';
-// import * as S from './Main.styled';
+import * as S from './Main.styled';
 
 
 const statusList = [
@@ -14,11 +14,10 @@ const statusList = [
 function Main({ cardList, isLoaded }) {
   // props (cardList)
   return (
-    // <S.MainStyled>
-    <main className="main">
+    <S.MainStyled>
       <Container>
-        <div className="main__block">
-          <div className="main__content">
+        <S.MainBlock>
+          <S.MainContent>
             {/* тернарный оператор */}
             {isLoaded
               ? 'Loading...'
@@ -29,11 +28,10 @@ function Main({ cardList, isLoaded }) {
                     cardList={cardList.filter((card) => card.status === item)}
                   />
                 ))}
-          </div>
-        </div>
+          </S.MainContent>
+        </S.MainBlock>
       </Container>
-    </main>
-    // </S.MainStyled>
+    </S.MainStyled>
   );
 }
 
