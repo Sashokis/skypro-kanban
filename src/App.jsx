@@ -7,49 +7,48 @@ import PopNewCard from './components/PopNewCard/PopNewCard';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 
-import { useEffect, useState } from 'react'; // useState - Hook 
+import { useEffect, useState } from 'react'; // useState - Hook
 import { cardList } from './data';
+import { GlobalStyle } from './Global.styled';
 
 function App() {
- 
-  const [ cards, setCards ] = useState(cardList); // setCards - состояние 
-  const [ isLoaded, setIsLoaded ] = useState(true);
+  const [cards, setCards] = useState(cardList); // setCards - состояние
+  const [isLoaded, setIsLoaded] = useState(true);
 
-  useEffect( () => {
+  useEffect(() => {
     setTimeout(() => {
       setIsLoaded(false);
     }, 2000);
-  }, [] ) 
- 
+  }, []);
+
   function addCard() {
     setCards([
-      ...cards, // добавили старые данные в нов массив 
+      ...cards, // добавили старые данные в нов массив
       {
         id: cards.length + 1,
-        theme: "Research",
-        title: "Новая задача",
-        date: "30.10.23",
-        status: "Без статуса",
+        theme: 'Research',
+        title: 'Новая задача',
+        date: '30.10.23',
+        status: 'Без статуса'
       }
-    ])
+    ]);
   }
 
-
   return (
-    <Wrapper>
-      {/* pop-up start*/}
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        {/* pop-up start*/}
         <PopExit />
         <PopNewCard />
         <PopBrowse />
-        
-      {/* pop-up end*/}
-        <Header addCard = { addCard }/>
-        <Main cardList = { cards } isLoaded = { isLoaded }/>
-    </Wrapper>
+
+        {/* pop-up end*/}
+        <Header addCard={addCard} />
+        <Main cardList={cards} isLoaded={isLoaded} />
+      </Wrapper>
+    </>
   );
 }
 
 export default App;
-
-
-
