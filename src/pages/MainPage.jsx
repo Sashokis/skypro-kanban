@@ -1,6 +1,5 @@
 import Wrapper from '../components/Wrapper/Wrapper';
-import PopExit from '../components/PopExit/PopExit';
-import PopNewCard from '../components/PopNewCard/PopNewCard';
+// import PopNewCard from '../components/PopNewCard/PopNewCard';
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
 import { useEffect, useState } from 'react'; // useState - Hook
@@ -36,8 +35,7 @@ return (
     <>
     <Wrapper>
       <Outlet />
-      <PopExit />
-      <PopNewCard />
+      {/* <PopNewCard /> */}
       <Header addCard={addCard} />
       <Main cardList={cards} isLoaded={isLoaded} />
       <Link to = {appRoutes.REGISTER}> Регистрация</Link>

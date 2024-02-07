@@ -1,6 +1,6 @@
 import PopExit from "../components/PopExit/PopExit";
 
-export default function CardPage (){
+export default function PopExitPage (){
 return (
         <PopExit />
 );

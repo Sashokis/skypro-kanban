@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Container } from '../Common/Common.styled';
 import { HeaderBlock, HeaderLogo, HeaderNav, HeaderStyled, PopUserSetMail, PopUserSetName } from './Header.styled';
+import { Link } from "react-router-dom";
+// import { appRoutes } from '../../lib/appRoutes';
 
 function Header({ addCard }) {
   const [isOpened, setIsOpened] = useState(false);
@@ -49,7 +51,7 @@ function Header({ addCard }) {
                   <input type="checkbox" className="checkbox" name="checkbox" />
                 </div>
                 <button type="button" className="_hover03">
-                  <a href="#popExit">Выйти</a>
+                  <Link to = "/exit">Выйти</Link>
                 </button>
               </div>
             )}
