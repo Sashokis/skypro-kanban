@@ -1,7 +1,12 @@
-import { CardBtn, CardContent, CardDate, CardGroup, CardItem, CardTheme, CardThemeText, CardTitle, CardWrapper } from './Crad.styled';
+import { Link} from 'react-router-dom';
 
-function Card({ name, theme, date }) {
-// состыковка темы и цвета
+import { CardBtn, CardContent, CardDate, CardGroup, CardItem, CardTheme, CardThemeText, CardTitle, CardWrapper } from './Crad.styled';
+import { appRoutes } from '../../lib/appRoutes';
+// import PopBrowse from '../PopBrowse/PopBrowse';
+
+function Card({ name, theme, date, id }) {
+  
+  // состыковка темы и цвета
   let color;
   switch (theme) {
     case 'Web Design':
@@ -33,15 +38,15 @@ function Card({ name, theme, date }) {
               <div />
               <div />
               <div />
-            </CardBtn>
+            </CardBtn> 
           </a>
         </CardGroup>
         <CardContent>
-          <a href="" target="_blank">
+          <Link to = {`${appRoutes.CARD}/${id}`}>
             <CardTitle>
               {name}
             </CardTitle>
-          </a>
+          </  Link>
           <CardDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"

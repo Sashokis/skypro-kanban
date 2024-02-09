@@ -1,53 +1,33 @@
-import './App.css';
-import Wrapper from './components/Wrapper/Wrapper';
-import PopExit from './components/PopExit/PopExit';
-import PopBrowse from './components/PopBrowse/PopBrowse';
-
-import PopNewCard from './components/PopNewCard/PopNewCard';
-import Header from './components/Header/Header';
-import Main from './components/Main/Main';
-
-import { useEffect, useState } from 'react'; // useState - Hook
-import { cardList } from './data';
+import './App.css'; 
 import { GlobalStyle } from './Global.styled';
+import { Route, Routes } from 'react-router';
+import { appRoutes } from './lib/appRoutes';
+import MainPage from './pages/MainPage';
+import LoginPage from './pages/LoginPage';
+import CardPage from './pages/CardPage';
+import RegisterPage from './pages/RegisterPage';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import NotFoundPage from './pages/NotFoundPage';
+import PopExitPage from './pages/PopExitPage';
 
 function App() {
-  const [cards, setCards] = useState(cardList); // setCards - состояние
-  const [isLoaded, setIsLoaded] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoaded(false);
-    }, 2000);
-  }, []);
-
-  function addCard() {
-    setCards([
-      ...cards, // добавили старые данные в нов массив
-      {
-        id: cards.length + 1,
-        theme: 'Research',
-        title: 'Новая задача',
-        date: '30.10.23',
-        status: 'Без статуса'
-      }
-    ]);
-  }
+  let user = true;
 
   return (
     <>
       <GlobalStyle />
-      <Wrapper>
-        {/* pop-up start*/}
-        <PopExit />
-        <PopNewCard />
-        <PopBrowse />
-
-        {/* pop-up end*/}
-        <Header addCard={addCard} />
-        <Main cardList={cards} isLoaded={isLoaded} />
-      </Wrapper>
-    </>
+      <Routes>
+        <Route element = {<PrivateRoute user = {user}/>}>
+          <Route path = {appRoutes.MAIN} element = {<MainPage/>} >
+            <Route path = {appRoutes.EXIT} element = {< PopExitPage/>} />
+            <Route path = {`${appRoutes.CARD}/:cardId`} element = {<CardPage/>} />      
+          </Route> 
+        </Route>
+        <Route path = {appRoutes.LOGIN} element = {<LoginPage/>} />
+        <Route path = {appRoutes.REGISTER} element = {<RegisterPage/>} />
+        <Route path = {appRoutes.NOT_FOUND} element = {<NotFoundPage/>}/>
+      </Routes>
+    </> 
   );
 }
 
