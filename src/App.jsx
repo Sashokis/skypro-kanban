@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route element = {<PrivateRoute user = {userData}/>}>
           <Route path = {appRoutes.MAIN} element = {<MainPage userData={userData}/>} >
-            <Route path = {appRoutes.EXIT} element = {< PopExitPage/>} />
+            <Route path = {appRoutes.EXIT} element = {< PopExitPage setUserData = {setUserData}/>} />
             <Route path = {`${appRoutes.CARD}/:cardId`} element = {<CardPage/>} />      
           </Route> 
         </Route>
