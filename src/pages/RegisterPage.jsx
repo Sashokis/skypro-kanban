@@ -185,7 +185,7 @@ a {
 `;
 
 export default function RegisterPage (){
-return (
+  return (
     <>
     <style>{styles}</style>
     <div className="wrapper">

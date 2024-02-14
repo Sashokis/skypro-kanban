@@ -14,6 +14,7 @@ const styles = `
 *:before,
 *:after {
   box-sizing: border-box;
+  
 }
 
 a,
