@@ -3,19 +3,29 @@ import Wrapper from '../components/Wrapper/Wrapper';
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
 import { useEffect, useState } from 'react'; // useState - Hook
-import { cardList } from '../data';
-import { Link, Outlet } from 'react-router-dom';
-import { appRoutes } from '../lib/appRoutes';
+// import { cardList } from '../data'; 
+import { Outlet } from 'react-router-dom';
+import { getTasks } from '../api';
+// import { appRoutes } from '../lib/appRoutes';
 
-export default function MainPage (){
-  const [cards, setCards] = useState(cardList); // setCards - состояние
+export default function MainPage ({userData}){
+  const [cards, setCards] = useState(null); 
   const [isLoaded, setIsLoaded] = useState(true);
+  const [getCardsError, setGetCardsError] = useState(null);
 
-  
+  // загрузка данных в карточки
   useEffect(() => {
-    setTimeout(() => {
+    getTasks({token: userData.token})
+    .then((data) => {
+      console.log(data.tasks);
+      setCards(data.tasks);
+    })
+    .catch((error) => {
+      setGetCardsError(error.message);
+    })
+    .finally(() => {
       setIsLoaded(false);
-    }, 2000);
+    })
   }, []);
 
   function addCard() {
@@ -37,12 +47,12 @@ return (
       <Outlet />
       {/* <PopNewCard /> */}
       <Header addCard={addCard} />
-      <Main cardList={cards} isLoaded={isLoaded} />
-      <Link to = {appRoutes.REGISTER}> Регистрация</Link>
-      <br />
-      <Link to = {appRoutes.LOGIN}> Войти </Link>
+      {getCardsError ? (
+        <p style={{ color: "red" }}>{getCardsError}</p>
+      ) : (
+        <Main cardList={cards} isLoaded={isLoaded} />
+      )}
     </Wrapper>
-      
     </>
 );
 }
