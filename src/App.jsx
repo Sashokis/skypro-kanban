@@ -9,9 +9,13 @@ import RegisterPage from './pages/RegisterPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import NotFoundPage from './pages/NotFoundPage';
 import PopExitPage from './pages/PopExitPage';
+import { useState } from 'react';
 
 function App() {
-  let user = true;
+
+  const [userData, setUserData] = useState(null);
+
+
 
   return (
     <>
@@ -23,8 +27,8 @@ function App() {
             <Route path = {`${appRoutes.CARD}/:cardId`} element = {<CardPage/>} />      
           </Route> 
         </Route>
-        <Route path = {appRoutes.LOGIN} element = {<LoginPage/>} />
-        <Route path = {appRoutes.REGISTER} element = {<RegisterPage/>} />
+        <Route path = {appRoutes.LOGIN} element = {<LoginPage setUserData = {setUserData}/>} />
+        <Route path = {appRoutes.REGISTER} element = {<RegisterPage setUserData = {setUserData}/>} />
         <Route path = {appRoutes.NOT_FOUND} element = {<NotFoundPage/>}/>
       </Routes>
     </> 

@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../App.css'; 
 import { appRoutes } from '../lib/appRoutes';
+import { useState } from 'react';
+import { register } from '../api';
 
 const styles = `
 * {
@@ -184,8 +186,44 @@ a {
 
 `;
 
-export default function RegisterPage (){
-  return (
+
+
+export default function RegisterPage ({setUserData}){
+
+// переадресация между страницами 
+let navigate = useNavigate();
+
+// данные по умолчаню 
+const registerForm = {
+  name: '',
+  login: '',
+  password: '',
+}
+const [ registerData, setRegisterData ] = useState(registerForm);
+
+const handleRegister = async (e) => {
+  e.preventDefault()
+  await register(registerData).then((data) => {
+    setUserData(data.user);
+   }).then(() => {
+    navigate(appRoutes.MAIN);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}
+
+// функция обновления состояния 
+const handleInputChange = (e) => {
+  const { name, value } = e.target; 
+
+   setRegisterData({
+    ...registerData, 
+    [name]: value, 
+  });
+};
+
+return (
     <>
     <style>{styles}</style>
     <div className="wrapper">
@@ -199,14 +237,19 @@ export default function RegisterPage (){
           <input
             className="modal__input first-name"
             type="text"
-            name="first-name"
             id="first-name"
             placeholder="Имя"
+
+            value={registerData.name}
+            onChange={handleInputChange}
+            name="name"  
           />
           <input
             className="modal__input login"
             type="text"
             name="login"
+            value={registerData.login}
+            onChange={handleInputChange}
             id="loginReg"
             placeholder="Эл. почта"
           />
@@ -214,11 +257,14 @@ export default function RegisterPage (){
             className="modal__input password-first"
             type="password"
             name="password"
+            value={registerData.password}
+            onChange={handleInputChange}
             id="passwordFirst"
             placeholder="Пароль"
           />
-          <button className="modal__btn-signup-ent _hover01" id="SignUpEnter">
-            <Link to = {appRoutes.MAIN}>Зарегистрироваться</Link>{" "}
+          <button onClick={handleRegister} className="modal__btn-signup-ent _hover01" id="SignUpEnter">
+            {/* <Link to = {appRoutes.MAIN}>Зарегистрироваться</Link>{" "} */}
+            Зарегистрироваться
           </button>
           <div className="modal__form-group">
             <p>
