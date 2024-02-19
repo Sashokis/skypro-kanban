@@ -6,12 +6,14 @@ import { useEffect, useState } from 'react'; // useState - Hook
 // import { cardList } from '../data'; 
 import { Outlet } from 'react-router-dom';
 import { getTasks } from '../api';
+import { useUser } from '../hooks/useUse';
 // import { appRoutes } from '../lib/appRoutes';
 
-export default function MainPage ({userData}){
+export default function MainPage (){
   const [cards, setCards] = useState(null); 
   const [isLoaded, setIsLoaded] = useState(true);
   const [getCardsError, setGetCardsError] = useState(null);
+  const {userData} = useUser();
 
   // загрузка данных в карточки
   useEffect(() => {

@@ -1,8 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../App.css'; 
-import { appRoutes } from '../lib/appRoutes';
+// import { appRoutes } from '../lib/appRoutes';
 import { useState } from 'react';
 import { register } from '../api';
+import { useUser } from '../hooks/useUse';
 
 const styles = `
 * {
@@ -187,11 +188,13 @@ a {
 `;
 
 
+export default function RegisterPage (){
 
-export default function RegisterPage ({setUserData}){
+const {loginUser} = useUser();
 
 // переадресация между страницами 
-let navigate = useNavigate();
+// let navigate = useNavigate();
+
 
 // данные по умолчаню 
 const registerForm = {
@@ -204,10 +207,9 @@ const [ registerData, setRegisterData ] = useState(registerForm);
 const handleRegister = async (e) => {
   e.preventDefault()
   await register(registerData).then((data) => {
-    setUserData(data.user);
-   }).then(() => {
-    navigate(appRoutes.MAIN);
-  })
+    // setUserData(data.user);
+    loginUser(data.user);
+   })
   .catch((error) => {
     console.log(error);
   })
