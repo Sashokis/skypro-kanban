@@ -194,7 +194,6 @@ export default function LoginPage (){
 
 const {loginUser} = useUser();
 
-
 // хранит данные по умолчанию
 const loginForm = {
   login: '',
@@ -205,7 +204,7 @@ const [loginData, setLoginData] = useState(loginForm);
 const  handleLogin = async (e) => {
   e.preventDefault()
   await login(loginData).then((data) => {
-    console.log(data);
+    console.log(data.user);
     // setUserData(data.user);
     loginUser(data.user);
   })

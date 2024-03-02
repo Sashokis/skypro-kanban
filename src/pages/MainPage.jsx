@@ -1,5 +1,5 @@
 import Wrapper from '../components/Wrapper/Wrapper';
-// import PopNewCard from '../components/PopNewCard/PopNewCard';
+import PopNewCard from '../components/PopNewCard/PopNewCard';
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
 import { useEffect, useState } from 'react'; // useState - Hook
@@ -13,13 +13,22 @@ export default function MainPage (){
   const [cards, setCards] = useState(null); 
   const [isLoaded, setIsLoaded] = useState(true);
   const [getCardsError, setGetCardsError] = useState(null);
+
+  // const {userData} = useUser();
   const {userData} = useUser();
+
+// const addCard = async () => {
+  //   let newCard = [
+  //     ...newTask, data: selected
+  //   ]
+  // }
+
 
   // загрузка данных в карточки
   useEffect(() => {
     getTasks({token: userData.token})
     .then((data) => {
-      console.log(data.tasks);
+      // console.log(data.tasks);
       setCards(data.tasks);
     })
     .catch((error) => {
@@ -47,7 +56,7 @@ return (
     <>
     <Wrapper>
       <Outlet />
-      {/* <PopNewCard /> */}
+      <PopNewCard />
       <Header addCard={addCard} />
       {getCardsError ? (
         <p style={{ color: "red" }}>{getCardsError}</p>
