@@ -193,6 +193,7 @@ a {
 export default function LoginPage (){
 
 const {loginUser} = useUser();
+// console.log(loginUser);
 
 // хранит данные по умолчанию
 const loginForm = {
@@ -207,6 +208,8 @@ const  handleLogin = async (e) => {
     console.log(data.user);
     // setUserData(data.user);
     loginUser(data.user);
+    
+    
   })
   .catch((error) => {
     alert(error);

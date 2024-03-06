@@ -10,18 +10,20 @@ import { useUser } from '../hooks/useUse';
 // import { appRoutes } from '../lib/appRoutes';
 
 export default function MainPage (){
-  const [cards, setCards] = useState(null); 
+  const [cards, setCards] = useState([]); 
   const [isLoaded, setIsLoaded] = useState(true);
   const [getCardsError, setGetCardsError] = useState(null);
 
   // const {userData} = useUser();
   const {userData} = useUser();
+  const [isOpen, setIsOpen] = useState(false);
 
 // const addCard = async () => {
   //   let newCard = [
   //     ...newTask, data: selected
   //   ]
   // }
+
 
 
   // загрузка данных в карточки
@@ -40,24 +42,27 @@ export default function MainPage (){
   }, []);
 
   function addCard() {
-    setCards([
-      ...cards, // добавили старые данные в нов массив
-      {
-        id: cards.length + 1,
-        theme: 'Research',
-        title: 'Новая задача',
-        date: '30.10.23',
-        status: 'Без статуса'
-      }
-    ]);
+    // setCards([
+    //   ...cards, // добавили старые данные в нов массив
+    //   {
+    //     id: cards.length + 1,
+    //     theme: 'Research',
+    //     title: 'Новая задача',
+    //     date: '30.10.23',
+    //     status: 'Без статуса'
+    //   }
+    // ]);
+    setIsOpen(true);
   }
+
 
 return (
     <>
     <Wrapper>
       <Outlet />
-      <PopNewCard />
-      <Header addCard={addCard} />
+      {isOpen && <PopNewCard />}
+      
+      <Header addCard={addCard}   />
       {getCardsError ? (
         <p style={{ color: "red" }}>{getCardsError}</p>
       ) : (

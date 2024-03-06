@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { appRoutes } from "../lib/appRoutes";
 import { useNavigate } from "react-router-dom";
 
@@ -26,6 +26,11 @@ export function UserProvider ({ children }) {
         localStorage.removeItem('user');
         navigate(appRoutes.LOGIN);
     }
+
+    useEffect( () => {
+        localStorage.setItem('user', JSON.stringify(userData));
+    }, [userData]);
+
 
 
     return (
