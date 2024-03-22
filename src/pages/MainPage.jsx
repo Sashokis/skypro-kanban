@@ -1,23 +1,29 @@
 import Wrapper from '../components/Wrapper/Wrapper';
-// import PopNewCard from '../components/PopNewCard/PopNewCard';
+import PopNewCard from '../components/PopNewCard/PopNewCard';
 import Header from '../components/Header/Header';
 import Main from '../components/Main/Main';
 import { useEffect, useState } from 'react'; // useState - Hook
 // import { cardList } from '../data'; 
 import { Outlet } from 'react-router-dom';
-import { getTasks } from '../api';
+import { getTasks} from '../api';
+import { useUser } from '../hooks/useUse';
 // import { appRoutes } from '../lib/appRoutes';
 
-export default function MainPage ({userData}){
-  const [cards, setCards] = useState(null); 
+export default function MainPage (){
+  const [cards, setCards] = useState([]); 
   const [isLoaded, setIsLoaded] = useState(true);
   const [getCardsError, setGetCardsError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+
+  // const {userData} = useUser();
+  const {userData} = useUser();
 
   // загрузка данных в карточки
   useEffect(() => {
     getTasks({token: userData.token})
     .then((data) => {
-      console.log(data.tasks);
+      // console.log(data.tasks);
       setCards(data.tasks);
     })
     .catch((error) => {
@@ -29,24 +35,32 @@ export default function MainPage ({userData}){
   }, []);
 
   function addCard() {
-    setCards([
-      ...cards, // добавили старые данные в нов массив
-      {
-        id: cards.length + 1,
-        theme: 'Research',
-        title: 'Новая задача',
-        date: '30.10.23',
-        status: 'Без статуса'
-      }
-    ]);
+    // setCards([
+    //   ...cards, // добавили старые данные в нов массив
+    //   {
+    //     id: cards.length + 1,
+    //     theme: 'Research',
+    //     title: 'Новая задача',
+    //     date: '30.10.23',
+    //     status: 'Без статуса'
+    //   }
+    // ]);
+    setIsOpen(true);
   }
+
+  // const addCard = async () => {
+  //   let newCard = [
+  //     ...newTask, data: selected
+  //   ]
+  // }
 
 return (
     <>
     <Wrapper>
       <Outlet />
-      {/* <PopNewCard /> */}
-      <Header addCard={addCard} />
+      {isOpen && <PopNewCard />}
+      
+      <Header addCard={addCard} userData={userData}  />
       {getCardsError ? (
         <p style={{ color: "red" }}>{getCardsError}</p>
       ) : (

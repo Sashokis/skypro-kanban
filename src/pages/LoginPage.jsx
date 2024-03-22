@@ -1,9 +1,10 @@
 import Wrapper from "../components/Wrapper/Wrapper";
 import '../App.css'; 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { appRoutes } from "../lib/appRoutes";
 import { useState } from "react";
 import { login } from "../api";
+import { useUser } from "../hooks/useUse";
 
 
 const styles = `
@@ -189,9 +190,11 @@ a {
 
 `;
 
-export default function LoginPage ({setUserData}){
+export default function LoginPage (){
 
-let navigate = useNavigate();
+// получем loginUser из user.jsx
+const {loginUser} = useUser();
+// console.log(loginUser);
 
 // хранит данные по умолчанию
 const loginForm = {
@@ -203,12 +206,12 @@ const [loginData, setLoginData] = useState(loginForm);
 const  handleLogin = async (e) => {
   e.preventDefault()
   await login(loginData).then((data) => {
-    console.log(data);
-    setUserData(data.user);
-  }).then(() => {
-    navigate(appRoutes.MAIN);
+    console.log(data.user);
+    // setUserData(data.user);
+    loginUser(data.user);
   })
   .catch((error) => {
+    alert(error);
     console.log(error);
   })
 }

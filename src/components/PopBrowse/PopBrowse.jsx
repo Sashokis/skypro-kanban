@@ -3,6 +3,7 @@ import { appRoutes } from '../../lib/appRoutes';
 
 function PopBrowse() { 
   let {cardId } = useParams();
+ 
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
@@ -44,7 +45,7 @@ function PopBrowse() {
                   <label htmlFor="textArea01" className="subttl">
                     Описание задачи
                   </label>
-                  <textarea
+                  <textarea 
                     className="form-browse__area"
                     name="text"
                     id="textArea01"
@@ -173,7 +174,7 @@ function PopBrowse() {
                 </button>
                 <button className="btn-browse__delete _btn-bor _hover03">
                   <a href="#">Удалить задачу</a>
-                </button>
+                </button> 
               </div>
               <button className="btn-browse__close _btn-bg _hover01">
                 <Link to={appRoutes.MAIN}>Закрыть</Link>
