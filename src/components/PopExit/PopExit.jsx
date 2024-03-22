@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import * as S from './PopExit.styled'
 import { appRoutes } from '../../lib/appRoutes';
+import { useUser } from '../../hooks/useUse';
 
-function PopExit({setUserData}) {
+function PopExit() {
+
+  const {logoutUser} = useUser();
 
   function LogOut () {
-    setUserData(null)
+    // setUserData(null);
+    logoutUser(null);
   }
 
   return (

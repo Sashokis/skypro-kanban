@@ -5,7 +5,7 @@ import Main from '../components/Main/Main';
 import { useEffect, useState } from 'react'; // useState - Hook
 // import { cardList } from '../data'; 
 import { Outlet } from 'react-router-dom';
-import { getTasks } from '../api';
+import { getTasks} from '../api';
 import { useUser } from '../hooks/useUse';
 // import { appRoutes } from '../lib/appRoutes';
 
@@ -13,18 +13,11 @@ export default function MainPage (){
   const [cards, setCards] = useState([]); 
   const [isLoaded, setIsLoaded] = useState(true);
   const [getCardsError, setGetCardsError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
 
   // const {userData} = useUser();
   const {userData} = useUser();
-  const [isOpen, setIsOpen] = useState(false);
-
-// const addCard = async () => {
-  //   let newCard = [
-  //     ...newTask, data: selected
-  //   ]
-  // }
-
-
 
   // загрузка данных в карточки
   useEffect(() => {
@@ -55,6 +48,11 @@ export default function MainPage (){
     setIsOpen(true);
   }
 
+  // const addCard = async () => {
+  //   let newCard = [
+  //     ...newTask, data: selected
+  //   ]
+  // }
 
 return (
     <>
@@ -62,7 +60,7 @@ return (
       <Outlet />
       {isOpen && <PopNewCard />}
       
-      <Header addCard={addCard}   />
+      <Header addCard={addCard} userData={userData}  />
       {getCardsError ? (
         <p style={{ color: "red" }}>{getCardsError}</p>
       ) : (

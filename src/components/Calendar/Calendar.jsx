@@ -5,9 +5,9 @@ import "react-day-picker/dist/style.css";
 
 export function Calendar({selected, setSelected}) {
 
-  let footer = <p>Please pick a day.</p>;
+  let footer = <p>Пожалуйста выберете дату.</p>;
   if (selected) {
-    footer = <p>You picked {format(selected, "PP", { locale: ru })}.</p>;
+    footer = <p>Вы выбрали{format(selected, "PP", { locale: ru })}.</p>;
   }
   return (
     <DayPicker locale={ru}
